@@ -1,70 +1,23 @@
 menu "Blackmagic Configuration"
 
-    choice ESP_WIFI_MODE
-        prompt "AP or STA"
-        default ESP_WIFI_IS_SOFTAP
-        help
-        Whether the esp32 is softAP or station.
-
-    config ESP_WIFI_IS_SOFTAP
-        bool "SoftAP"
-    config ESP_WIFI_IS_STATION
-        bool "Station"
-    endchoice
-
-    config ESP_WIFI_MODE_AP
-        bool
-        default y if ESP_WIFI_IS_SOFTAP
-        default n if ESP_WIFI_IS_STATION
-
-    config ESP_WIFI_SSID
-        string "WiFi SSID"
-        default "auto"
+    config ESP_WIFI_AP_SSID
+        string "WiFi AP SSID"
+        default "Farpatch"
         help
            SSID (network name) for ap and sta modes.
            auto - generates name automatically when in ap mode using mac address for ex. blackmagic_27FCF5E
 
-    config ESP_WIFI_PASSWORD
-        string "WiFi Password"
-        default "helloworld"
+    config ESP_WIFI_AP_SSID_APPEND_CHIPID
+        bool "Append Chip ID to AP SSID"
+        default y
         help
-           WiFi password (WPA or WPA2) for the example to use.
-
-    config ESP_WIFI_SSID2
-        string "WiFi SSID 2"
+            If true, will append the chip ID to the SSID when running in AP mode
+    
+    config ESP_WIFI_AP_PASSWORD
+        string "WiFi AP Password"
         default ""
         help
-           SSID (network name) for 2nd network
-
-    config ESP_WIFI_PASSWORD2
-        string "WiFi Password 2"
-        default ""
-        help
-           WiFi password (WPA or WPA2) for 2nd network.
-
-    config ESP_WIFI_SSID3
-        string "WiFi SSID 3"
-        default ""
-        help
-           SSID (network name) for 3rd network
-
-    config ESP_WIFI_PASSWORD3
-        string "WiFi Password 3"
-        default ""
-        help
-           WiFi password (WPA or WPA2) for 3rd network.
-
-    config ESP_WIFI_SSID4
-        string "WiFi SSID 4"
-        default ""
-        help
-           SSID (network name) for 4th network
-
-    config ESP_WIFI_PASSWORD4
-        string "WiFi Password 4"
-        default ""
-        help
-           WiFi password (WPA or WPA2) for 4th network.
+           WiFi password (WPA or WPA2) for AP mode
 
     config MAX_STA_CONN
         int "Max STA conn"
@@ -102,39 +55,25 @@ menu "Blackmagic Configuration"
         help
         Reset GPIO Number
 
-    choice TARGET_UART
-        prompt "Target UART"
-        default TARGET_UART1
+    config TARGET_UART
+        bool "Target UART support"
+        default y
         help
-            Which UART to use for monitoring the target. UART0 is the
-            debug UART and is unavailable.
-
-        config TARGET_UART_NONE
-            bool "None"
-        config TARGET_UART1
-            bool "UART1"
-        config TARGET_UART2
-            bool "UART2"
-    endchoice # TARGET_UART
-
-    config TARGET_UART_IDX
-        int
-        default 0 if TARGET_UART0
-        default 1 if TARGET_UART1
-        default 2 if TARGET_UART2
-        default 1
-
-    config UART_TX_GPIO
+        Connect the UART to the target device
+    
+    config TARGET_UART_TX_GPIO
         int "UART TX pin"
+            depends on TARGET_UART
         default 26
         help
-        Pin to use for UART TX
+        Pin to use for target UART TX
 
-    config UART_RX_GPIO
+    config TARGET_UART_RX_GPIO
         int "UART RX pin"
+            depends on TARGET_UART
         default 27
         help
-        Pin to use for UART RX
+        Pin to use for target UART RX
         
     config DEBUG_UART
         bool "Use debug UART for log messages"

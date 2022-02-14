@@ -4,7 +4,8 @@ set(srcs "gdb_if.cpp"
          "http.c"
          "ota-tftp.c"
          "platform.c"
-         "tinyprintf.c")
+         "tinyprintf.c"
+         "wifi.c")
 set(incs, "."
          "include")
 

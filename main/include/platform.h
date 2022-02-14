@@ -106,4 +106,6 @@ void platform_set_baud(uint32_t baud);
 #define PLATFORM_IDENT "esp32"
 #endif
 
+#define TARGET_UART_IDX 1
+
 extern uint32_t swd_delay_cnt;
