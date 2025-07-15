@@ -1,3 +1,4 @@
+2025/07/15: This repo is deprecated. It has been fully replaced by [Farpatch](https://github.com/farpatch/farpatch), which is a rewrite of the project for modern ESP-IDF that has faster pin IO and a better UI.
 
 # Introduction
 
